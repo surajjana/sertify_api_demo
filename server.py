@@ -1,24 +1,25 @@
 from bottle import *
 from pymongo import MongoClient
 from bson.json_util import dumps
+import requests
 import json
 import time
 import os
 
 app = Bottle(__name__)
 
-# client = MongoClient('mongodb://cas:cas@54/cas')
-# db = client.db
-
 @app.route('/')
 def root():
-	print(os.environ.get('mongo_uri', None))
 	return "Centa API Demo Server"
 
-# @app.route('/home')
-# def home():
-# 	return static_file('home.html',  root='templates/')
+@app.route('/badge')
+def badge():
+	
+	url = 'https://centa.sertify.me/api/fetch_badges'
+	myobj = {'api_key': 'sAqElnNeC7n5zQkVx9gq9vbG6RyLwt0N4VZbQoSCb3M=', 'user_id': 'kartik_centa_test'}
 
-# @app.route('/badge')
-# def badge():
-# 	return static_file('badge.html', root='templates/')
+	res = requests.post(url, data = myobj)
+
+	data = json.loads(res.text)
+	
+	return template('templates/badge.tpl', badge_link=data['badges'][0]['badge_link'])
