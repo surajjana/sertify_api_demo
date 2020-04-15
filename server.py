@@ -16,7 +16,7 @@ def root():
 def badge():
 	
 	url = 'https://centa.sertify.me/api/fetch_badges'
-	myobj = {'api_key': 'sAqElnNeC7n5zQkVx9gq9vbG6RyLwt0N4VZbQoSCb3M=', 'user_id': 'kartik_centa_test'}
+	myobj = {'api_key': os.environ.get('api_key', None), 'user_id': os.environ.get('api_key', None)}
 
 	res = requests.post(url, data = myobj)
 
