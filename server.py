@@ -18,8 +18,11 @@ def badge():
 	url = 'https://centa.sertify.me/api/fetch_badges'
 	myobj = {'api_key': os.environ.get('api_key', None), 'user_id': os.environ.get('api_key', None)}
 
+	print(os.environ.get('api_key'), os.environ.get('user_id'))
+
 	res = requests.post(url, data = myobj)
 
 	data = json.loads(res.text)
+	print(data)
 	
 	return template('templates/badge.tpl', badge_link=data['badges'][0]['badge_link'])
