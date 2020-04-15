@@ -12,7 +12,7 @@ app = Bottle(__name__)
 
 @app.route('/')
 def root():
-	print(os.environ('mongo_uri'))
+	print(os.environ.get('mongo_uri', None))
 	return "Centa API Demo Server"
 
 # @app.route('/home')
